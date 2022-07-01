@@ -5,7 +5,7 @@ import Board from './components/Board';
 
 
 function App() {
-  const Data = [
+  const setData = [
     {board_id:1, 
       title:"hello",
       owner:"bugbuster",
