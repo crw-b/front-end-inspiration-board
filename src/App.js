@@ -1,6 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import Board from './components/Board';
+import React from 'react'
 
 
 
@@ -30,11 +31,16 @@ function App() {
             message:"pokemon",
             likes_count:0}]
           }]
+  console.log(Data[0])
   return (
     <div className="App">
       <h1>board</h1>
       <Board 
-        props = {Data[0]}/>
+        board_id={Data[0]['board_id']}
+        cards={Data[0]['cards']}
+        title={Data[0]['title']}
+        owner={Data[0]['owner']}
+        />
     </div>
   );
 };
