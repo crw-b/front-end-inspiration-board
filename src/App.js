@@ -2,7 +2,9 @@
 import './App.css';
 import Board from './components/Board';
 import React from 'react'
-
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import NewCardForm from './components/Forms';
 
 
 function App() {
@@ -32,15 +34,40 @@ function App() {
             likes_count:0}]
           }]
   console.log(Data[0])
+  const getBoards = Data.map((board) => <Board 
+  board_id={board.board_id}
+  cards={board.cards}
+  title={board.title}
+  owner={board.owner}/>
+  );
+  console.log(getBoards);
+
+  // const Dropdown = ({getBoards}) => {
+  //   return (
+  //     <label>
+  //       {getBoards.title}
+  //       <select value={getBoards.board_id}>
+  //         {getBoards.map((option) => (
+  //           <option value={option.value}>{option.label}</option>
+  //         ))}
+  //       </select>
+  //     </label>
+  //   )
+  // }
+
+
+
+  const options = ['one', 'two']
+
   return (
     <div className="App">
-      <h1>board</h1>
-      <Board 
-        board_id={Data[0]['board_id']}
-        cards={Data[0]['cards']}
-        title={Data[0]['title']}
-        owner={Data[0]['owner']}
-        />
+      <p className='header'>
+        <h1>Bug Busters' Board:</h1>
+        <h2>Board Title</h2>
+      </p> 
+      <Dropdown className='board-select' options={options}/>
+      <NewCardForm className='form'/>
+      <div className='cards'>{getBoards}</div>
     </div>
   );
 };

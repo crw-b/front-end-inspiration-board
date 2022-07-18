@@ -11,7 +11,11 @@ const Board = ({cards, board_id, title, owner}) => {
         likes_count={card.likes_count}/>
     );
 
-    return <ul className='cards-list'>{getCards}</ul>;
+    return (
+        <div className='board-general'>
+            <h2 className='board-title'>{title}</h2>
+            <ul className='cards-list'>{getCards}</ul>
+        </div>);
 }
 
 Board.propTypes = {

@@ -1,5 +1,29 @@
 .App {
   text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 1fr 2fr;
+  margin: 40px;
+}
+
+.cards {
+  grid-column: 2;
+  grid-row:1/4;
+}
+
+.form {
+  grid-column:1;
+  grid-row:3/4;
+}
+
+.board-select {
+  grid-column:1;
+  grid-row:2;
+}
+
+.header {
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .App-logo {
