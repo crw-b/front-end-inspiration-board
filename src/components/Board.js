@@ -9,13 +9,6 @@ const Board = ({cards, board_id, title, owner}) => {
         card_id={card.card_id}
         message={card.message}
         likes_count={card.likes_count}/>
-    // {
-    //         return(<Card 
-    //             card_id = {card.card_id} 
-    //             message = {card.message} 
-    //             // increaseLikes = {card.increaseLikes}
-    //             likes_count = {card.likes_count}/>) 
-    //         }
     );
 
     return <ul className='cards-list'>{getCards}</ul>;
