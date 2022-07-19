@@ -13,6 +13,7 @@ export const URL = 'https://bugbusters-back-end.herokuapp.com/boards';
 function App() {
   const [boards, setboards] = useState([]);
   const [status, setStatus] = useState('Loading...');
+  const [currentBoard, setcurrentBoard] = useState(boards[0])
 
   useEffect(() => {
     axios 
@@ -35,9 +36,10 @@ function App() {
         <h1>Bug Busters' Board:</h1>
         <h2>Board Title</h2>
       </p> 
-      <Dropdown className='board-select' options={options}/>
+      <Dropdown className='board-select' options={options}
+        placeholder="Select a board"/>
       <NewCardForm className='form'/>
-      <div className='cards'>{boards.cards}</div>
+      <div className='cards'>{currentBoard}</div>
     </div>
   );
 };
