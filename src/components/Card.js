@@ -5,11 +5,13 @@ import './Card.css'
 
 const Card = (props) => {
     return (
+      <div className='card'>
         <ul>
             <li className='card_message'>{props.message}</li>
             <li>{props.likes}</li>
             <button className='likes_button' onClick={()=>props.increaseLikes(props.id)}></button>
         </ul>
+      </div>
     )
 }
 

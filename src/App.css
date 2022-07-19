@@ -60,3 +60,18 @@
     transform: rotate(360deg);
   }
 }
+
+.card {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  justify-content: center;
+  text-decoration:none;
+  color:#000;
+  background:#ffc;
+  display:block;
+  height:10em;
+  width:10em;
+  padding:1em;
+  margin:1em;
+}
