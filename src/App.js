@@ -58,9 +58,13 @@ function App() {
         <h1>Bug Busters' Board:</h1>
         <h2>{currentBoard.title}</h2>
       </span> 
-      <Dropdown className='board-select' options={options} placeholder="Select a board" onChange={(e) => changeBoard(e)}/>
-      <NewCardForm className='form'/>
-      <Board className='cards' cards={currentBoard.cards}/>
+      <div className='board-select'>
+        <Dropdown options={options} placeholder="Select a board" onChange={(e) => changeBoard(e)}/>
+      </div>
+      <div className='form'>
+        <NewCardForm className='form'/>
+      </div>
+      <Board className='card' cards={currentBoard.cards}/>
     </div>
   );
 };
