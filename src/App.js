@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import Board from './components/Board';
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect} from 'react';
 import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -59,7 +59,7 @@ function App() {
       // .catch((err) => console.log(err.response.data));
   };
 
-  const addBoard = (message) => {
+  const addBoard = (boardData) => {
     axios
       .post(URL)
       .then((res) => {
@@ -69,7 +69,7 @@ function App() {
           "owner": res.data.board.owner,
           "title": res.data.board.title
         };
-        setBoards([...boards, newBoard]);
+        setBoards(oldBoards => [...oldBoards, newBoard]);
       })
       // .catch((err) => console.log(err.response.data));
   };

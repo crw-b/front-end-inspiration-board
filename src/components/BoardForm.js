@@ -2,60 +2,81 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 // import './BoardForm.css';
 
-const NewBoardForm = ({onAddBoardCallback}) => {
-    const [boardData, setBoardData] = useState({
-    "title": '',
-    "owner": ''
-    });
 
-    const submitBoardData = (e) => {
-    e.preventDefault();
 
-    onAddBoardCallback({
-        "title":boardData.title,
-        "owner":boardData.owner
-    });
-    setBoardData({ "title": boardData.title, "owner": boardData.owner});
-    };
+const kNewBoardData = {
+    title: '',
+    owner: '',
 
-    const handleTitleChange = (e) => {
-        setBoardData(boardData["title"] = e.target.value);
-    };
-
-    const handleOwnerChange = (e) => {
-        setBoardData(boardData["owner"] = e.target.value);
-    };
-
-    return (
-    <form onSubmit={submitBoardData} className="new-board-form">
-        <section>
-            <h2>Add a Board</h2>
-            <div className="new-card-fields">
-                <label htmlFor="title">Title</label>
-                <input
-                name="title"
-                id="title"
-                value={boardData.title}
-                onChange={handleTitleChange}
-                />
-                <label htmlFor="owner">Owner</label>
-                <input
-                name="owner"
-                id="owner"
-                value={boardData.owner}
-                onChange={handleOwnerChange}
-                />
-                <button className="button-new-board-submit" type="submit">
-                Add Board
-                </button>
-            </div>
-        </section>
-    </form>
-    );
 };
 
-// NewCardForm.propTypes = {
-//     onAddTaskCallback: PropTypes.func.isRequired,
-// };
+const NewBoardForm = ({onAddBoardCallback}) => {
+    const [boardData, setBoardData] = useState(kNewBoardData);
+
+    const handleChange = (e) => {
+        const fieldName = e.target.name;
+        const value = e.target.value; 
+
+
+        setBoardData(oldData => ({...oldData, [fieldName]: value})); 
+
+    }; 
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (!boardData.title){return; }
+
+    }
+
+    setBoardData(kNewBoardData); 
+
+    onAddBoardCallback({
+        ...boardData,
+    })
+
+
+
+
+    return (
+        <form onSubmit={handleSubmit} className='new-board-form'> 
+            <section>
+                <h2>Create New Board</h2>
+                    <div className='new-board_fields'>
+                        <label htmlFor="new-board_title">Title</label>
+                        <input
+                            name="title"
+                            id='new-board__title'
+                            value={boardData.title}
+                            onChange={handleChange}
+                        />
+
+
+                        <label htmlFor="new-board__owner">Owner</label>
+                        <input
+                            name="owner"
+                            id="owner"
+                            value={boardData.owner}
+                            onChange={handleChange}
+                        />
+
+                        <button className="button-new-board-submit" type="submit">
+                            Add Board
+                        </button>
+                    </div>
+            </section>
+        
+        </form>
+    );
+ }; 
+
+
+
+
+NewBoardForm.propTypes = {
+    onAddBoardCallback : PropTypes.func.isRequired,
+
+}
+
 
 export default NewBoardForm;
