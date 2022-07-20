@@ -85,7 +85,7 @@ function App() {
         <Dropdown options={options} placeholder="Select a board" onChange={(e) => {changeBoard(e); changeBoardTitle(e)}}/>
       </div>
       <div className='form'>
-        <NewCardForm className='form' onAddCardCallback={addCard}/>
+        <NewCardForm className='form' onAddCardCallback={addCard} board_title={currentTitle.title}/>
       </div>
       <Board className='card' cards={currentBoard.cards}/>
     </div>

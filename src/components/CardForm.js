@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './CardForm.css';
 
-const NewCardForm = ({onAddCardCallback}) => {
+const NewCardForm = ({onAddCardCallback, board_title}) => {
     const [cardData, setCardData] = useState({
     "message": ''
     });
@@ -23,7 +23,7 @@ const NewCardForm = ({onAddCardCallback}) => {
     return (
     <form onSubmit={submitCardData} className="new-card-form">
         <section>
-            <h2>Add a Card</h2>
+            <h2>Add a Card to {board_title}</h2>
             <div className="new-card-fields">
                 <label htmlFor="message">Message</label>
                 <input
