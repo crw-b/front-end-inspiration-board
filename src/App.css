@@ -16,6 +16,10 @@
   grid-row:3/4;
 }
 
+.hiddenForm {
+  display: none;
+}
+
 .board-select {
   grid-column:1;
   grid-row:2;

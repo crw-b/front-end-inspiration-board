@@ -41,8 +41,9 @@ const NewCardForm = ({onAddCardCallback, board_title}) => {
     );
 };
 
-// NewCardForm.propTypes = {
-//     onAddTaskCallback: PropTypes.func.isRequired,
-// };
+NewCardForm.propTypes = {
+    onAddCardCallback: PropTypes.func.isRequired,
+    board_title: PropTypes.string.isRequired
+};
 
 export default NewCardForm;

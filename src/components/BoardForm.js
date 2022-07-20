@@ -1,42 +1,52 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './Forms.css';
+// import './BoardForm.css';
 
-const NewBoardForm = ({ onAddBoardCallback }) => {
+const NewBoardForm = ({onAddBoardCallback}) => {
     const [boardData, setBoardData] = useState({
-    title: '',
-    owner: ''
+    "title": '',
+    "owner": ''
     });
 
     const submitBoardData = (e) => {
     e.preventDefault();
 
     onAddBoardCallback({
-    ...boardData,
-    title: boardData.title === 'true',
-    owner: boardData.owner === 'true'
+        "title":boardData.title,
+        "owner":boardData.owner
     });
-    setBoardData({ message: '', likes_count: 0 });
+    setBoardData({ "title": boardData.title, "owner": boardData.owner});
     };
 
-    const handleChange = (e) => {
-    setBoardData({ ...cardData, [e.target.name]: e.target.value });
+    const handleTitleChange = (e) => {
+        setBoardData(boardData["title"] = e.target.value);
+    };
+
+    const handleOwnerChange = (e) => {
+        setBoardData(boardData["owner"] = e.target.value);
     };
 
     return (
-    <form onSubmit={submitCardData} className="new-card-form">
+    <form onSubmit={submitBoardData} className="new-board-form">
         <section>
-            <h2>Add a Card</h2>
+            <h2>Add a Board</h2>
             <div className="new-card-fields">
-                <label htmlFor="message">Message</label>
+                <label htmlFor="title">Title</label>
                 <input
-                name="message"
-                id="message"
-                value={cardData.message}
-                onChange={handleChange}
+                name="title"
+                id="title"
+                value={boardData.title}
+                onChange={handleTitleChange}
                 />
-                <button className="button-new-card-submit" type="submit">
-                Add Card
+                <label htmlFor="owner">Owner</label>
+                <input
+                name="owner"
+                id="owner"
+                value={boardData.owner}
+                onChange={handleOwnerChange}
+                />
+                <button className="button-new-board-submit" type="submit">
+                Add Board
                 </button>
             </div>
         </section>
@@ -44,8 +54,8 @@ const NewBoardForm = ({ onAddBoardCallback }) => {
     );
 };
 
-NewCardForm.propTypes = {
-    onAddTaskCallback: PropTypes.func.isRequired,
-};
+// NewCardForm.propTypes = {
+//     onAddTaskCallback: PropTypes.func.isRequired,
+// };
 
-export default NewCardForm;
+export default NewBoardForm;

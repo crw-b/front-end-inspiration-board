@@ -6,6 +6,7 @@ import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import NewCardForm from './components/CardForm';
+import NewBoardForm from './components/BoardForm';
 
 export const URL = 'https://bugbusters-back-end.herokuapp.com/boards';
 
@@ -38,29 +39,12 @@ function App() {
       });
   },[]);
 
-  const options = []
+  const options = ["create new board"]
     for (const board of boards){
       let option = {value: board.board_id, label: board.title}
       options.push(option);
     };
-
-  const changeBoard = (selectedOption) => {
-    console.log(selectedOption);
-    axios
-      .get(URL + '/' + selectedOption.value + '/cards')
-      .then((res) => {
-        setcurrentBoard(res.data);
-      });
-  };
-
-  const changeBoardTitle = (selectedOption) => {
-    console.log(selectedOption.value);
-    const newBoardById = boards.filter((board) => board.board_id === selectedOption.value);
-    console.log(newBoardById);
-    console.log(newBoardById[0].title);
-    setcurrentTitle(newBoardById[0]);
-  };
-
+  
   const addCard = (message) => {
     axios
       .post(URL + '/' + currentTitle.board_id + '/cards', message)
@@ -75,6 +59,50 @@ function App() {
       // .catch((err) => console.log(err.response.data));
   };
 
+  const addBoard = (message) => {
+    axios
+      .post(URL)
+      .then((res) => {
+        console.log(res);
+        const newBoard = {
+          "board_id": res.data.board.board_id,
+          "owner": res.data.board.owner,
+          "title": res.data.board.title
+        };
+        setBoards([...boards, newBoard]);
+      })
+      // .catch((err) => console.log(err.response.data));
+  };
+
+  let cardFormVisibility = "hiddenForm";
+  let boardFormVisibility = "form";
+
+  const changeBoard = (selectedOption) => {
+    console.log(selectedOption);
+    if (selectedOption.value === "create new board"){
+      cardFormVisibility = "hiddenForm";
+      boardFormVisibility = "form";
+    } else {
+      cardFormVisibility = "form";
+      boardFormVisibility = "hiddenForm";
+      axios
+      .get(URL + '/' + selectedOption.value + '/cards')
+      .then((res) => {
+        setcurrentBoard(res.data);
+      });
+    }
+  };
+
+  const changeBoardTitle = (selectedOption) => {
+    console.log(selectedOption.value);
+    if (selectedOption.value !== "create new board") {
+      const newBoardById = boards.filter((board) => board.board_id === selectedOption.value);
+      console.log(newBoardById);
+      console.log(newBoardById[0].title);
+      setcurrentTitle(newBoardById[0]);
+    }
+  };
+
   return (
     <div className="App">
       <span className='header'>
@@ -84,8 +112,11 @@ function App() {
       <div className='board-select'>
         <Dropdown options={options} placeholder="Select a board" onChange={(e) => {changeBoard(e); changeBoardTitle(e)}}/>
       </div>
-      <div className='form'>
-        <NewCardForm className='form' onAddCardCallback={addCard} board_title={currentTitle.title}/>
+      <div className={cardFormVisibility}>
+        <NewCardForm onAddCardCallback={addCard} board_title={currentTitle.title}/> 
+      </div>
+      <div className={boardFormVisibility}>
+        <NewBoardForm onAddBoardCallback={addBoard}/> 
       </div>
       <Board className='card' cards={currentBoard.cards}/>
     </div>
