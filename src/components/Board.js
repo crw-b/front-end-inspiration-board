@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Card from './Card.js';
 import './Board.css';
 
-const Board = ({cards}) => {
-    console.log(cards);
-    const getCards = cards.map((card) => {
+const Board = (props) => {
+    console.log(props.cards);
+    const getCards = props.cards.map((card) => {
         return (
         <Card 
             key={card.card_id}

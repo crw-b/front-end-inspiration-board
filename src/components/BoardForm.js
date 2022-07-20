@@ -2,26 +2,25 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Forms.css';
 
-const NewCardForm = ({ onAddCardCallback }) => {
-    const [cardData, setCardData] = useState({
-    card_id: 0,
-    message: '',
-    likes_count: 0,
-});
+const NewBoardForm = ({ onAddBoardCallback }) => {
+    const [boardData, setBoardData] = useState({
+    title: '',
+    owner: ''
+    });
 
-// what is THIS?
-    const submitCardData = (e) => {
+    const submitBoardData = (e) => {
     e.preventDefault();
 
-    onAddCardCallback({
-    ...cardData,
-    message: cardData.message === 'true',
+    onAddBoardCallback({
+    ...boardData,
+    title: boardData.title === 'true',
+    owner: boardData.owner === 'true'
     });
-    setCardData({ message: '', likes_count: 0 });
+    setBoardData({ message: '', likes_count: 0 });
     };
 
     const handleChange = (e) => {
-    setCardData({ ...cardData, [e.target.name]: e.target.value });
+    setBoardData({ ...cardData, [e.target.name]: e.target.value });
     };
 
     return (
@@ -45,8 +44,8 @@ const NewCardForm = ({ onAddCardCallback }) => {
     );
 };
 
-// NewCardForm.propTypes = {
-//     onAddTaskCallback: PropTypes.func.isRequired,
-// };
+NewCardForm.propTypes = {
+    onAddTaskCallback: PropTypes.func.isRequired,
+};
 
 export default NewCardForm;
