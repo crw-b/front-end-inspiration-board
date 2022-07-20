@@ -2,29 +2,43 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 // import './BoardForm.css';
 
+
+const kNewBoardData = {
+    title: '',
+    owner: '',
+
+};
+
 const NewBoardForm = ({onAddBoardCallback}) => {
-    const [boardData, setBoardData] = useState({
-    "title": '',
-    "owner": ''
-    });
+    const [boardData, setBoardData] = useState(kNewBoardData); 
+
+
+    const handleChange = (e) => {
+        const fieldName = e.target.name;
+        const value = e.target.value;
+
+    
+        setBoardData(oldData => ({ ...oldData, [fieldName]: value }));
+    };
+
+
 
     const submitBoardData = (e) => {
-    e.preventDefault();
+      
+        e.preventDefault();
+    
+        if (!boardData.title) { return; }
+    
+        // reset the form back to its default values. This won't affect the value
+        // of taskData until React re-renders, so we are still free to use it in
+        // the remainder of this function
+        setBoardData(kNewBoardData);
 
-    onAddBoardCallback({
-        "title":boardData.title,
-        "owner":boardData.owner
-    });
-    setBoardData({ "title": boardData.title, "owner": boardData.owner});
+
+
+    onAddBoardCallback(boardData);
     };
 
-    const handleTitleChange = (e) => {
-        setBoardData(boardData["title"] = e.target.value);
-    };
-
-    const handleOwnerChange = (e) => {
-        setBoardData(boardData["owner"] = e.target.value);
-    };
 
     return (
     <form onSubmit={submitBoardData} className="new-board-form">
@@ -36,14 +50,14 @@ const NewBoardForm = ({onAddBoardCallback}) => {
                 name="title"
                 id="title"
                 value={boardData.title}
-                onChange={handleTitleChange}
+                onChange={handleChange}
                 />
                 <label htmlFor="owner">Owner</label>
                 <input
                 name="owner"
                 id="owner"
                 value={boardData.owner}
-                onChange={handleOwnerChange}
+                onChange={handleChange}
                 />
                 <button className="button-new-board-submit" type="submit">
                 Add Board
@@ -54,8 +68,9 @@ const NewBoardForm = ({onAddBoardCallback}) => {
     );
 };
 
-// NewCardForm.propTypes = {
-//     onAddTaskCallback: PropTypes.func.isRequired,
-// };
+NewBoardForm.propTypes = {
+    onAddBoardCallback: PropTypes.func.isRequired,
+};
+
 
 export default NewBoardForm;

@@ -59,9 +59,9 @@ function App() {
       // .catch((err) => console.log(err.response.data));
   };
 
-  const addBoard = (message) => {
+  const addBoard = (boardInfo) => {
     axios
-      .post(URL)
+      .post(URL, boardInfo)
       .then((res) => {
         console.log(res);
         const newBoard = {
