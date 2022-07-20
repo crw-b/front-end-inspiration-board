@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import Card from './Card.js';
 import './Board.css';
 
-const Board = (props) => {
-    console.log(props.cards);
-    const getCards = props.cards.map((card) => {
+const Board = ({cards, increaseLikes}) => {
+    console.log(cards);
+    const getCards = cards.map((card) => {
         return (
         <Card 
-            key={card.card_id}
+            card_id={card.card_id}
             message={card.message}
             likes_count={card.likes_count}
+            increaseLikes={increaseLikes}
         />
         );
     });
@@ -24,8 +25,9 @@ const Board = (props) => {
 Board.propTypes = {
     board_id: PropTypes.number,
     message: PropTypes.string, 
-    increaseLikes: PropTypes.number, 
+    increaseLikes: PropTypes.func, 
     likes_count: PropTypes.number,
+
 }
 
 export default Board;

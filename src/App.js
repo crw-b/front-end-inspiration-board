@@ -45,6 +45,8 @@ function App() {
       let option = {value: board.board_id, label: board.title}
       options.push(option);
     };
+
+
   
   const addCard = (message) => {
     axios
@@ -75,8 +77,7 @@ function App() {
       // .catch((err) => console.log(err.response.data));
   };
 
-  let cardFormVisibility = false;
-  let boardFormVisibility = false;
+
 
   const changeBoard = (selectedOption) => {
     console.log(selectedOption.value);
@@ -98,6 +99,18 @@ function App() {
         setcurrentBoard(res.data);
       });
     }
+  };
+
+
+  const increaseLikes = (card_id) => {
+    console.log(card_id);
+    console.log(currentTitle.board_id);
+
+   
+    return axios.patch(URL + '/' + currentTitle.board_id + '/cards/' + card_id)
+    .then(changeBoard({"value":currentTitle.board_id}));
+
+
   };
 
   const changeBoardTitle = (selectedOption) => {
@@ -125,7 +138,7 @@ function App() {
       <div className='form' style={{display: formVisibility.boardForm ? 'block': 'none'}}>
         <NewBoardForm onAddBoardCallback={addBoard}/> 
       </div>
-      <Board className='card' cards={currentBoard.cards}/>
+      <Board className='card' cards={currentBoard.cards}  increaseLikes={increaseLikes}/>
     </div>
   );
 };
