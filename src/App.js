@@ -11,35 +11,56 @@ export const URL = 'https://bugbusters-back-end.herokuapp.com/boards';
 
 
 function App() {
-  const [boards, setboards] = useState([]);
+  const [boards, setBoards] = useState([]);
   const [status, setStatus] = useState('Loading...');
-  const [currentBoard, setcurrentBoard] = useState(boards[0])
+  const [currentBoard, setcurrentBoard] = useState({cards:[{board_id:0, card_id:0, message: "no cards on board", likes_count:0}], title:"No Board Selected"})
 
   useEffect(() => {
     axios 
       .get(URL)
       .then((res) =>{
-        setboards(res.data);
-        console.log(boards)
+        console.log(res.data);
+        const newBoards = res.data.map((board) => {
+          return {
+            board_id: board.board_id,
+            title: board.title,
+            owner: board.owner,
+            cards: board.cards
+          };
+        });
+        setBoards(newBoards);
+        console.log(newBoards)
+        setStatus('Loaded');
       })
-
-  },[])
+      .catch((err) => {
+        console.log(err);
+      });
+  },[]);
 
   const options = []
     for (const board of boards){
-      options.push(board.title)
-    }
+      let option = {value: board.board_id, label: board.title}
+      options.push(option);
+    };
+
+  const changeBoard = (selectedOption) => {
+    console.log(selectedOption);
+    axios
+      .get(URL + '/' + selectedOption.value + '/cards')
+      .then((res) => {
+        setcurrentBoard(res.data);
+      });
+  };
 
   return (
     <div className="App">
-      <p className='header'>
+      <span className='header'>
         <h1>Bug Busters' Board:</h1>
-        <h2>Board Title</h2>
-      </p> 
-      <Dropdown className='board-select' options={options}
-        placeholder="Select a board"/>
+        <h2>{currentBoard.title}</h2>
+      </span> 
+      <Dropdown className='board-select' options={options} placeholder="Select a board" onChange={(e) => changeBoard(e)}/>
       <NewCardForm className='form'/>
-      <div className='cards'>{currentBoard}</div>
+      <Board className='cards' cards={currentBoard.cards}/>
     </div>
   );
 };
