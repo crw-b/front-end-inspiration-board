@@ -23,15 +23,15 @@ const Card = ({key, message, likes_count}) => {
   )
 }
 
-// Card.propTypes = {
-//     props: PropTypes.arrayOf(
-//       PropTypes.shape({
-//         key: PropTypes.number,
-//         message: PropTypes.string,
-//         likes: PropTypes.number,
-//       })
-//     ).isRequired,
-//   };
+Card.propTypes = {
+    props: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.number,
+        message: PropTypes.string,
+        likes: PropTypes.number,
+      })
+    ).isRequired,
+  };
 
 
 export default Card;

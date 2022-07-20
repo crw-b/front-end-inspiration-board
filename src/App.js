@@ -16,6 +16,7 @@ function App() {
   const [status, setStatus] = useState('Loading...');
   const [currentBoard, setcurrentBoard] = useState({cards:[{board_id:0, card_id:0, message: "no cards on board", likes_count:0}]})
   const [currentTitle, setcurrentTitle] = useState({title:'NO BOARD SELECTED', board_id:0});
+  const [formVisibility, setFormVisibility] = useState({cardForm: false, boardForm:false});
 
   useEffect(() => {
     axios 
@@ -74,17 +75,23 @@ function App() {
       // .catch((err) => console.log(err.response.data));
   };
 
-  let cardFormVisibility = "hiddenForm";
-  let boardFormVisibility = "form";
+  let cardFormVisibility = false;
+  let boardFormVisibility = false;
 
   const changeBoard = (selectedOption) => {
-    console.log(selectedOption);
+    console.log(selectedOption.value);
     if (selectedOption.value === "create new board"){
-      cardFormVisibility = "hiddenForm";
-      boardFormVisibility = "form";
+      setFormVisibility({
+        cardForm: false,
+        boardForm: true,
+      });
+  
     } else {
-      cardFormVisibility = "form";
-      boardFormVisibility = "hiddenForm";
+      setFormVisibility({
+        cardForm: true,
+        boardForm: false,
+      });
+
       axios
       .get(URL + '/' + selectedOption.value + '/cards')
       .then((res) => {
@@ -112,10 +119,10 @@ function App() {
       <div className='board-select'>
         <Dropdown options={options} placeholder="Select a board" onChange={(e) => {changeBoard(e); changeBoardTitle(e)}}/>
       </div>
-      <div className={cardFormVisibility}>
+      <div className='form' style={{display: formVisibility.cardForm ? 'block': 'none'}}>
         <NewCardForm onAddCardCallback={addCard} board_title={currentTitle.title}/> 
       </div>
-      <div className={boardFormVisibility}>
+      <div className='form' style={{display: formVisibility.boardForm ? 'block': 'none'}}>
         <NewBoardForm onAddBoardCallback={addBoard}/> 
       </div>
       <Board className='card' cards={currentBoard.cards}/>
