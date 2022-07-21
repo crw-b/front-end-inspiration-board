@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+// import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './Card.css'
 
@@ -12,13 +12,11 @@ const Card = ({card_id, message, likes_count, increaseLikes, deleteCard}) => {
     deleteCard(card_id)
   }
 
-
-
   return (
-    <div className='card'>
+    <div className='cards'>
+      <h2 className='card_message'>{message}</h2>
+      <div className='like'>{likes_count} 👍 </div>
       <ul>
-          <li className='card_message'>{message}</li>
-          <li>{likes_count} likes</li>
           <button className='likes_button' onClick={handleLikeButton}>Like</button>
           <button className='delete_button' onClick={deleteCardButton}>Delete Card</button>
       </ul>

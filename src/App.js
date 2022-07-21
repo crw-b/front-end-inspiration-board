@@ -12,7 +12,6 @@ export const URL = 'https://bugbusters-back-end.herokuapp.com/boards';
 
 
 
-
 function App() {
   const [boards, setBoards] = useState([]);
   const [status, setStatus] = useState('Loading...');
@@ -159,21 +158,21 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <span className='header'>
-        <h1>Bug Busters' Board:</h1>
-        <h2>{currentTitle.title}</h2>
+    <div>
+      <span>
+        <h1 className='header'>Bug Busters' Inspo Board:</h1>
+        <h2 className='header'>{currentTitle.title}</h2>
       </span> 
-      <div className='board-select'>
-        <Dropdown options={options} placeholder="Select a board" onChange={(e) => {changeBoard(e); changeBoardTitle(e)}}/>
-      </div>
+      <section className='board-select'>
+        <Dropdown className='dropdown' options={options} placeholder="Select a board" onChange={(e) => {changeBoard(e); changeBoardTitle(e)}}/>
+      </section>
       <div className='form' style={{display: formVisibility.cardForm ? 'block': 'none'}}>
         <NewCardForm onAddCardCallback={addCard} board_title={currentTitle.title}/> 
       </div>
       <div className='form' style={{display: formVisibility.boardForm ? 'block': 'none'}}>
         <NewBoardForm onAddBoardCallback={addBoard}/> 
       </div>
-      <Board className='card' cards={currentBoard.cards}  increaseLikes={increaseLikes} deleteCard={onRemoveCard}/>
+      <Board className='cards' cards={currentBoard.cards}  increaseLikes={increaseLikes} deleteCard={onRemoveCard}/>
     </div>
   );
 };

@@ -19,7 +19,7 @@ const Board = ({cards, increaseLikes, deleteCard}) => {
 
     return (
         <div className='board-general'>
-            <li className='cards-list'>{getCards}</li>
+            <section className='cards-list'>{getCards}</section>
         </div>);
 }
 
