@@ -9,6 +9,7 @@ const Card = ({card_id, message, likes_count, increaseLikes, deleteCard}) => {
 
   const handleLikeButton = () => {
     increaseLikes(card_id);
+    likes_count += 1;
   }; 
 
   const deleteCardButton = () => {

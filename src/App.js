@@ -103,8 +103,21 @@ function App() {
     }
   };
 
-  const deleteCard = (id) => {
+  const onRemoveCard = (id) => {
     return axios.delete(URL + '/' + currentTitle.board_id + '/cards/' + id)
+      .then(() => {
+
+          
+        const newBoardData = (oldBoardData) => {
+          return oldBoardData.cards.filter(card => {
+            console.log(card);
+            return card.card_id !== id;
+          }); 
+        }
+
+        setcurrentBoard({'cards': newBoardData(currentBoard)});
+        console.log(currentBoard);
+      })
       .catch(error => {
         console.log(error);
         throw new Error(`error deleting card ${id}`);
@@ -114,25 +127,26 @@ function App() {
 
 
 
-  const onRemoveCard = (id) => {
-    setStatus('');
-    return deleteCard(id)
-      .then(() => {
+  // const onRemoveCard = (id) => {
+  //   setStatus('');
+  //   return deleteCard(id)
+  //     .then(() => {
 
         
-        const newBoardData = (oldBoardData) => {
-          return oldBoardData.cards.filter(card => {
-            console.log(card);
-            return card.card_id !== id;
-          }); 
-        }
+  //       const newBoardData = (oldBoardData) => {
+  //         return oldBoardData.cards.filter(card => {
+  //           console.log(card);
+  //           return card.card_id !== id;
+  //         }); 
+  //       }
 
-        setcurrentBoard({'cards': newBoardData(boards)});
-      })
-      .catch(err => {
-        setStatus(err.message);
-      });
-  };
+  //       setcurrentBoard({'cards': newBoardData(boards)});
+  //       console.log(currentBoard);
+  //     })
+  //     .catch(err => {
+  //       setStatus(err.message);
+  //     });
+  // };
 
 
 
@@ -142,7 +156,8 @@ function App() {
 
    
     axios.patch(URL + '/' + currentTitle.board_id + '/cards/' + card_id)
-    .then(changeBoard({"value":currentTitle.board_id}));
+    .then(() => {changeBoard({"value":currentTitle.board_id})});
+
 
 
   };
