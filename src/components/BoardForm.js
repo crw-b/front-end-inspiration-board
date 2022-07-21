@@ -27,7 +27,7 @@ const NewBoardForm = ({onAddBoardCallback}) => {
       
         e.preventDefault();
     
-        if (!boardData.title) { return; }
+        // if (!boardData.title) { return; }
     
         // reset the form back to its default values. This won't affect the value
         // of taskData until React re-renders, so we are still free to use it in

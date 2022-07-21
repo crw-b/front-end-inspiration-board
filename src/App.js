@@ -18,6 +18,7 @@ function App() {
   const [currentBoard, setcurrentBoard] = useState({cards:[{board_id:0, card_id:0, message: "no cards on board", likes_count:0}]})
   const [currentTitle, setcurrentTitle] = useState({title:'NO BOARD SELECTED', board_id:0});
   const [formVisibility, setFormVisibility] = useState({cardForm: false, boardForm:false});
+  const [formError, setFormError] = useState({cardForm: false, boardForm: false}); 
 
   useEffect(() => {
     axios 
@@ -60,7 +61,15 @@ function App() {
         setcurrentBoard({"cards":[...currentBoard.cards, newCard]});
         console.log(currentBoard);
       })
-      // .catch((err) => console.log(err.response.data));
+      .catch((err) => {
+
+        console.log(err.response.data)
+        setFormError({"cardForm": true, "boardForm": false})
+        
+      });
+
+      
+      
   };
 
 
@@ -68,21 +77,34 @@ function App() {
     axios
       .post(URL, boardInfo)
       .then((res) => {
-        console.log(res);
-        const newBoard = {
-          "board_id": res.data.board.board_id,
-          "owner": res.data.board.owner,
-          "title": res.data.board.title
-        };
-        setBoards([...boards, newBoard]);
+        if (!res.data.board.owner || !res.data.board.title){
+          setFormError({"cardForm": false, "boardForm": true});
+        }else{
+          console.log(res);
+          const newBoard = {
+            "board_id": res.data.board.board_id,
+            "owner": res.data.board.owner,
+            "title": res.data.board.title
+          };
+          setBoards([...boards, newBoard]);
+      }
       })
-      // .catch((err) => console.log(err.response.data));
+      // .catch((err) => {
+
+      //   console.log(err.response.data)
+      //   setFormError({"cardForm": false, "boardForm": true})
+   
+      // });
+
+      
+      
   };
 
 
 
   const changeBoard = (selectedOption) => {
     console.log(selectedOption.value);
+    // setFormError({"cardForm": false, "boardForm": false});
     if (selectedOption.value === "create new board"){
       setFormVisibility({
         cardForm: false,
@@ -181,10 +203,10 @@ function App() {
       <section className='board-select'>
         <Dropdown className='dropdown' options={options} placeholder="Select a board" onChange={(e) => {changeBoard(e); changeBoardTitle(e)}}/>
       </section>
-      <div className='form' style={{display: formVisibility.cardForm ? 'block': 'none'}}>
+      <div className='form' style={{display: formVisibility.cardForm ? 'block': 'none'}}  id={formError.cardForm === true ? 'errorDisplay' : ''}>
         <NewCardForm onAddCardCallback={addCard} board_title={currentTitle.title}/> 
       </div>
-      <div className='form' style={{display: formVisibility.boardForm ? 'block': 'none'}}>
+      <div className='form' style={{display: formVisibility.boardForm ? 'block': 'none'}} id={formError.boardForm === true ? 'errorDisplay' : ''}>
         <NewBoardForm onAddBoardCallback={addBoard}/> 
       </div>
       <Board className='cards' cards={currentBoard.cards}  increaseLikes={increaseLikes} deleteCard={onRemoveCard}/>

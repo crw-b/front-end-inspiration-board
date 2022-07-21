@@ -48,6 +48,11 @@ main {
   flex-direction: column;
   position: relative;
 }
+
+#errorDisplay {
+  border-style: dotted;
+  border-color: rgb(194, 50, 50);
+}
 /* 
 .hiddenForm {
   display: none;
