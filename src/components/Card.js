@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import './Card.css'
 
 const Card = ({card_id, message, likes_count, increaseLikes, deleteCard}) => {
+  if (!likes_count) {
+    likes_count = 0
+  };
 
   const handleLikeButton = () => {
     increaseLikes(card_id);
