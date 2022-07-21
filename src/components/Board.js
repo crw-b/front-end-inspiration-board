@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Card from './Card.js';
 import './Board.css';
 
-const Board = ({cards, increaseLikes}) => {
+const Board = ({cards, increaseLikes, deleteCard}) => {
     console.log(cards);
     const getCards = cards.map((card) => {
         return (
@@ -12,13 +12,14 @@ const Board = ({cards, increaseLikes}) => {
             message={card.message}
             likes_count={card.likes_count}
             increaseLikes={increaseLikes}
+            deleteCard={deleteCard}
         />
         );
     });
 
     return (
         <div className='board-general'>
-            <ul className='cards-list'>{getCards}</ul>
+            <li className='cards-list'>{getCards}</li>
         </div>);
 }
 
@@ -27,6 +28,7 @@ Board.propTypes = {
     message: PropTypes.string, 
     increaseLikes: PropTypes.func, 
     likes_count: PropTypes.number,
+    deleteCard: PropTypes.func,
 
 }
 

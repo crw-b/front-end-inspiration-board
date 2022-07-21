@@ -11,6 +11,8 @@ import NewBoardForm from './components/BoardForm';
 export const URL = 'https://bugbusters-back-end.herokuapp.com/boards';
 
 
+
+
 function App() {
   const [boards, setBoards] = useState([]);
   const [status, setStatus] = useState('Loading...');
@@ -62,6 +64,7 @@ function App() {
       // .catch((err) => console.log(err.response.data));
   };
 
+
   const addBoard = (boardInfo) => {
     axios
       .post(URL, boardInfo)
@@ -101,13 +104,45 @@ function App() {
     }
   };
 
+  const deleteCard = (id) => {
+    return axios.delete(URL + '/' + currentTitle.board_id + '/cards/' + id)
+      .catch(error => {
+        console.log(error);
+        throw new Error(`error deleting card ${id}`);
+      });
+  };
+
+
+
+
+  const onRemoveCard = (id) => {
+    setStatus('');
+    return deleteCard(id)
+      .then(() => {
+
+        
+        const newBoardData = (oldBoardData) => {
+          return oldBoardData.cards.filter(card => {
+            console.log(card);
+            return card.card_id !== id;
+          }); 
+        }
+
+        setcurrentBoard({'cards': newBoardData(boards)});
+      })
+      .catch(err => {
+        setStatus(err.message);
+      });
+  };
+
+
 
   const increaseLikes = (card_id) => {
     console.log(card_id);
     console.log(currentTitle.board_id);
 
    
-    return axios.patch(URL + '/' + currentTitle.board_id + '/cards/' + card_id)
+    axios.patch(URL + '/' + currentTitle.board_id + '/cards/' + card_id)
     .then(changeBoard({"value":currentTitle.board_id}));
 
 
@@ -138,7 +173,7 @@ function App() {
       <div className='form' style={{display: formVisibility.boardForm ? 'block': 'none'}}>
         <NewBoardForm onAddBoardCallback={addBoard}/> 
       </div>
-      <Board className='card' cards={currentBoard.cards}  increaseLikes={increaseLikes}/>
+      <Board className='card' cards={currentBoard.cards}  increaseLikes={increaseLikes} deleteCard={onRemoveCard}/>
     </div>
   );
 };
