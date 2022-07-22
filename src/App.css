@@ -221,6 +221,7 @@ ul{
   overflow-wrap: break-word;
 }
 
+<<<<<<< HEAD
 
 /* .likes_button:hover{
   text-align: center;
@@ -242,6 +243,9 @@ ul{
   width:50%;
 } */
 
+=======
+.dropdown{
+>>>>>>> 5773f2d961d38cc221557762ba804ca1ffdc5dc7
 
 
 .like{
@@ -258,4 +262,5 @@ ul{
 button:hover{
   background-color: #4a754c; /* Green */
   color: white;
+  cursor: pointer;
 }

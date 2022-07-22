@@ -16,7 +16,7 @@ function App() {
   const [boards, setBoards] = useState([]);
   const [status, setStatus] = useState('Loading...');
   const [currentBoard, setcurrentBoard] = useState({cards:[]})
-  const [currentTitle, setcurrentTitle] = useState({title:'', board_id:0});
+  const [currentTitle, setcurrentTitle] = useState({title:'NO BOARD SELECTED', board_id:0});
   const [formVisibility, setFormVisibility] = useState({cardForm: false, boardForm:false});
   const [formError, setFormError] = useState({cardForm: false, boardForm: false}); 
 
