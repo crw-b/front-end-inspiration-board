@@ -15,7 +15,7 @@ export const URL = 'https://bugbusters-back-end.herokuapp.com/boards';
 function App() {
   const [boards, setBoards] = useState([]);
   const [status, setStatus] = useState('Loading...');
-  const [currentBoard, setcurrentBoard] = useState({cards:[{board_id:0, card_id:0, message: "no cards on board", likes_count:0}]})
+  const [currentBoard, setcurrentBoard] = useState({cards:[]})
   const [currentTitle, setcurrentTitle] = useState({title:'NO BOARD SELECTED', board_id:0});
   const [formVisibility, setFormVisibility] = useState({cardForm: false, boardForm:false});
   const [formError, setFormError] = useState({cardForm: false, boardForm: false}); 
