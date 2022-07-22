@@ -8,6 +8,7 @@ const Board = ({cards, increaseLikes, deleteCard}) => {
     const getCards = cards.map((card) => {
         return (
         <Card 
+            key={card.card_id}
             card_id={card.card_id}
             message={card.message}
             likes_count={card.likes_count}
@@ -19,6 +20,7 @@ const Board = ({cards, increaseLikes, deleteCard}) => {
 
     return (
         <div className='board-general'>
+            <div classname='board-title-image'></div>
             <section className='cards-list'>{getCards}</section>
         </div>);
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import './BoardForm.css';
+import './BoardForm.css';
 
 
 const kNewBoardData = {
@@ -43,7 +43,7 @@ const NewBoardForm = ({onAddBoardCallback}) => {
     return (
     <form onSubmit={submitBoardData} className="new-board-form">
         <section>
-            <h2>Add a Board</h2>
+            <h2>Create a new bug board</h2>
             <div className="new-card-fields">
                 <label htmlFor="title">Title</label>
                 <input

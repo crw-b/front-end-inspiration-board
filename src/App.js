@@ -15,8 +15,8 @@ export const URL = 'https://bugbusters-back-end.herokuapp.com/boards';
 function App() {
   const [boards, setBoards] = useState([]);
   const [status, setStatus] = useState('Loading...');
-  const [currentBoard, setcurrentBoard] = useState({cards:[{board_id:0, card_id:0, message: "no cards on board", likes_count:0}]})
-  const [currentTitle, setcurrentTitle] = useState({title:'NO BOARD SELECTED', board_id:0});
+  const [currentBoard, setcurrentBoard] = useState({cards:[]})
+  const [currentTitle, setcurrentTitle] = useState({title:'', board_id:0});
   const [formVisibility, setFormVisibility] = useState({cardForm: false, boardForm:false});
   const [formError, setFormError] = useState({cardForm: false, boardForm: false}); 
 
@@ -167,21 +167,26 @@ function App() {
   };
 
   return (
+    
     <div>
       <span>
-        <h1 className='header'>Bug Busters' Inspo Board:</h1>
-        <h2 className='header'>{currentTitle.title}</h2>
-      </span> 
-      <section className='board-select'>
-        <Dropdown className='dropdown' options={options} placeholder="Select a board" onChange={(e) => {changeBoard(e); changeBoardTitle(e)}}/>
-      </section>
-      <div className='form' style={{display: formVisibility.cardForm ? 'block': 'none'}}  id={formError.cardForm === true ? 'errorDisplay' : ''}>
-        <NewCardForm onAddCardCallback={addCard} board_title={currentTitle.title}/> 
-      </div>
-      <div className='form' style={{display: formVisibility.boardForm ? 'block': 'none'}} id={formError.boardForm === true ? 'errorDisplay' : ''}>
-        <NewBoardForm onAddBoardCallback={addBoard}/> 
-      </div>
+        <div className='header'>
+          <h1 className='header-main'>Bug Busters</h1>
+          <h2 className='header-board'>{currentTitle.title}</h2>
+          <section className='board-select'>
+          <Dropdown className='dropdown' options={options} placeholder="Select a board to begin" onChange={(e) => {changeBoard(e); changeBoardTitle(e)}}/>
+          </section>
+        
+          <div className='form' style={{display: formVisibility.cardForm ? 'block': 'none'}}  id={formError.cardForm === true ? 'errorDisplay' : ''}>
+            <NewCardForm onAddCardCallback={addCard} board_title={currentTitle.title}/> 
+          </div>
+          <div className='form' style={{display: formVisibility.boardForm ? 'block': 'none'}} id={formError.boardForm === true ? 'errorDisplay' : ''}>
+            <NewBoardForm onAddBoardCallback={addBoard}/> 
+          </div>
+        </div>
+      </span>
       <Board className='cards' cards={currentBoard.cards}  increaseLikes={increaseLikes} deleteCard={onRemoveCard}/>
+      
     </div>
   );
 };

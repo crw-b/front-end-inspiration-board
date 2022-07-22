@@ -16,12 +16,14 @@ const Card = ({card_id, message, likes_count, increaseLikes, deleteCard}) => {
     deleteCard(card_id)
   }
 
+  let likeButton = '🤍 '
+
   return (
     <div className='cards'>
       <h2 className='card_message'>{message}</h2>
-      <div className='like'>{likes_count} 👍 </div>
+      <div className='like'>
+      <button className='likes_button' onClick={handleLikeButton}>{likeButton}</button>{likes_count}</div>
       <ul>
-          <button className='likes_button' onClick={handleLikeButton}>Like</button>
           <button className='delete_button' onClick={deleteCardButton}>Delete Card</button>
       </ul>
     </div>
