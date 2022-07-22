@@ -146,37 +146,9 @@ function App() {
       });
   };
 
-
-
-
-  // const onRemoveCard = (id) => {
-  //   setStatus('');
-  //   return deleteCard(id)
-  //     .then(() => {
-
-        
-  //       const newBoardData = (oldBoardData) => {
-  //         return oldBoardData.cards.filter(card => {
-  //           console.log(card);
-  //           return card.card_id !== id;
-  //         }); 
-  //       }
-
-  //       setcurrentBoard({'cards': newBoardData(boards)});
-  //       console.log(currentBoard);
-  //     })
-  //     .catch(err => {
-  //       setStatus(err.message);
-  //     });
-  // };
-
-
-
   const increaseLikes = (card_id) => {
     console.log(card_id);
     console.log(currentTitle.board_id);
-
-   
     axios.patch(URL + '/' + currentTitle.board_id + '/cards/' + card_id)
     .then(() => {changeBoard({"value":currentTitle.board_id})});
 
